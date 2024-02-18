@@ -1,0 +1,257 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('../fonts/PressStart2P-Regular.woff') format('woff2'),
+    url('../fonts/PressStart2P-Regular.woff') format('woff');    
+}
+
+.header
+.main
+.body
+.footer {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    display: grid;
+    background: rgb(0 7 168 / 0.8);
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+}
+
+.header {
+    display: grid;
+}
+
+.menu-icon {
+    height: 6vh;
+    transition: 0.3s;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.55);
+    transition: 0.3s;
+    z-index: 2;
+}
+
+.active-me {
+    right: 0%;
+}
+
+.active-me .menu-icon  {
+    --menu-color: #e0b0ff;
+}
+
+.toggle {
+    position: absolute;
+    left: -15%;
+    right: 4vw;
+    top: 4vh;
+    background-color: transparent;
+    border: 0;
+}
+
+.toggle:hover .menu-icon  {
+    --menu-color: #e0b0ff;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.game-list li {
+    list-style: none;
+}
+
+.game-list li h2 {
+    position: relative;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    color: #e0b0ff;
+    font-size: min(5.5vw, 5.5vh);
+    text-transform: uppercase;
+    
+    padding-left: 30px;
+    transition: 0.4s;
+}
+
+.game-list li h2:hover {
+    letter-spacing: 6px;
+    transform: translateX(15px);
+}
+
+h1 {
+    font-family: 'Press Start 2P';
+    align-self: center;
+    justify-self: center;
+    /* margin-left: 50px; */
+    color: #DBDBDB;
+    font-size: 6vh;
+    transition: 0.3s;
+}
+
+main {
+    display: grid;
+    /* padding-top: 20px; */
+    height: calc(100vh - 15vh);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 4fr;
+
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: var(--square-size) var(--square-size) var(--square-size);
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px;
+    list-style-type: none;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.square {
+    display: grid;
+    transition: fill 0.3s ease 0.05s;
+    position: relative;
+}
+
+
+.square:hover .square-svg {
+    --square-color: #e0b0ff;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.is-choosed {
+    --square-color: #e0b0ff;
+}
+
+.core {
+    transition: fill 0.3s ease 0.05s;
+}
+
+.square-svg {
+    width:  var(--square-size);
+}
+
+.square-svg .cross {
+    display: none;
+}
+
+.square-svg .cross-active {
+    display: block;
+}
+
+.square-svg .zero {
+    display: none;
+}
+
+.square-svg .zero-active {
+    display: block;
+}
+
+
+.score {
+    position: absolute;
+    font-family: 'Press Start 2P';
+    color: #DBDBDB;
+    font-size: min(4vw, 4vh);
+    right: 11vw;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.task {
+    display: grid;
+    position: relative;
+    justify-content: center;
+    align-self: center;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-template-rows: 5fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10vh;
+
+}
+
+.task-container {
+    display: grid;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-content: center;
+}
+
+.task-svg {
+    width: min(30vw, 65vh);
+    /* z-index: -1; */
+}
+
+
+
+
+.win {
+    display: grid;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    justify-content: center;
+    align-items: start;
+
+    background-color: transparent;
+    border: 0;
+    padding-right: 3vw;
+    color: #DBDBDB;
+}
+
+.win-text {
+    font-family: 'Press Start 2P';
+    font-size: 18px;
+    transition: 0.4s;
+}
+
+.win:hover {
+    color: #e0b0ff;
+    cursor: pointer;
+}
+
+.loss {
+    display: grid;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    justify-content: center;
+    align-items: start;
+    background-color: transparent;
+    border: 0;
+    padding-left: 8vw;
+    color: #DBDBDB;
+}
+
+.loss-text {
+    font-family: 'Press Start 2P';
+    font-size: 18px;
+    transition: 0.4s;
+}
+
+.loss:hover {
+    color: #e0b0ff;
+    cursor: pointer;
+}
+
+.task-text {
+    position: absolute;
+    top: 5vh;
+    left: 15vw;
+    font-family: 'Press Start 2P';
+    color: aliceblue;
+    font-size: min(2vh, 2vw);
+}
+

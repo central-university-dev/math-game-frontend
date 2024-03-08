@@ -1,88 +1,115 @@
-const dominoButtonArray = document.querySelectorAll('.domino-button');
-const dominoIkon = document.querySelectorAll('.domino-svg');
-const taskText = document.querySelector('.task-text');
-const buttonTrue = document.querySelector('.win');
-const buttonFalse = document.querySelector('.loss');
-let score = 0;
-let scoreText = document.querySelector('.score');
-let ind = 0;
+import { randomDominos } from "./random-dominos.js";
+import { win } from "./adding-score-if-win.js";
+import { loss } from "./adding-score-if-loss.js";
 
-const taskConditions = ["Задача 1", "Задача 2", "Задача 3", 
+const dominoButtonArray = document.querySelectorAll(".domino-button");
+const taskText = document.querySelector(".task-text");
+const buttonTrue = document.querySelector(".win");
+const buttonFalse = document.querySelector(".loss");
+const popUp = document.querySelector(".popup");
+const buttonFirstTeam = document.querySelector(".popup-first-team");
+const buttonSecondTeam = document.querySelector(".popup-second-team");
+const popUpGameOver = document.querySelector(".popup_game_over");
+const popUpGameOverText = document.querySelector(".popup-text-winner");
+const buttonRepeatGame = document.querySelector(".repeat");
+const toogle = document.querySelector(".toggle");
+
+let scoreTeam1 = document.querySelector(".score_team-1");
+let scoreTeam2 = document.querySelector(".score_team-2");
+
+let teamsScores = [0, 0];
+
+let currentDominoIndex = 0;
+let countSolvedTasks = 0;
+let currentDomino;
+
+const taskConditions = ["Задача 1", "Задача 2", "Задача 3",
                         "Задача 4", "Задача 5", "Задача 6",
-                        "Задача 7", "Задача 8", "Задача 9"]
-
-function randomDominos() {
-    let randomArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    randomArray = randomArray.sort(() => Math.random() - 0.5);
-    let dominoParent = document.querySelector('.cards');
-    let dominoChild = document.querySelectorAll('.domino');
-    for (let i = 0; i < 8; ++i) {
-        dominoParent.insertBefore(dominoChild[randomArray[i]], null);
-    }
-    const temp = randomArray[8];
-    for (let i = 8; i > 0; --i) {
-        randomArray[i] = randomArray[i - 1];
-    }
-    randomArray[0] = temp;
-}    
-
-const dominosScores = [[1, 2], [1, 3], [2, 3],
-                       [2, 4], [3, 3], [3, 4],
-                       [3, 5], [4, 5], [5, 5]
-];
+                        "Задача 7", "Задача 8", "Задача 9"];
 
 randomDominos();
 
-function toggleIsLiked(heart, button, index) {
-    heart.classList.toggle('is-choosed');
-    ind = index;
-    taskText.textContent = taskConditions[index];
+function isTheEnd(countSolvedTasks) {
+    if (countSolvedTasks === 9) {
+        popUpGameOver.classList.add("popup_is-opened");
+    }
+    if (teamsScores[0] > teamsScores[1]) {
+        popUpGameOverText.textContent = "Победила 1 команда!";
+    } else if (teamsScores[0] < teamsScores[1]) {
+        popUpGameOverText.textContent = "Победила 2 команда!";
+    } else {
+        popUpGameOverText.textContent = "Ничья!";
+    }
+    buttonRepeatGame.addEventListener("click", function (event) {
+        dominoButtonArray.forEach(function(element) {
+            element.classList.remove("is-choosed-none");
+            popUpGameOver.classList.remove("popup_is-opened");
+            taskText.textContent = "";
+            scoreTeam1.textContent = "Команда 1 Счет 000";
+            scoreTeam2.textContent = "Команда 1 Счет 000";
+        });
+    });
 }
 
-function toggle_div() {
+function scorePreprocessor(flag) {
+    popUp.classList.add("popup_is-opened");
+    popUp.addEventListener("click", function (event) {
+        if ( event.target.classList.contains("popup") ) {
+            popUp.classList.remove("popup_is-opened");
+        }
+    });
+    if (flag === "win") {
+        countSolvedTasks += 1;
+        buttonFirstTeam.onclick = function() {
+            teamsScores = win(1, teamsScores[0],
+                              teamsScores[1], currentDomino,
+                              countSolvedTasks, currentDominoIndex);
+        };
+        buttonSecondTeam.onclick = function() {
+            teamsScores = win(2, teamsScores[0],
+                              teamsScores[1], currentDomino,
+                              countSolvedTasks, currentDominoIndex);
+        };
+    } else {
+        if (currentDomino.classList.contains("is-choosed-second")) {
+            countSolvedTasks += 1;
+        }
+        buttonFirstTeam.onclick = function() {
+            teamsScores = loss(1, teamsScores[0],
+                               teamsScores[1], currentDomino,
+                               countSolvedTasks, currentDominoIndex);
+        };
+        buttonSecondTeam.onclick = function()  {
+            teamsScores = loss(2, teamsScores[0],
+                               teamsScores[1], currentDomino,
+                               countSolvedTasks, currentDominoIndex);
+        };
+    }
+}
+
+toogle.addEventListener("click", function () {
     let item = document.getElementById("sidebar");
-    item.classList.toggle('active-me');
-}
-
-function win() {
-    score += dominosScores[ind][1];
-    if (score > 0 && score < 100) {
-        if (score < 10) {
-            scoreText.textContent = "Score 00" + score;
-        } else {
-            scoreText.textContent = "Score 0" + score;
-        }
-    } else if (score === 0) {
-        scoreText.textContent = "Score 000";
-    } else{
-        scoreText.textContent = "Score " + score;
-    }
-    taskText.textContent = "ОГО ВАУ";
-    // console.log(dominosScores[ind]);
-}
-
-function loss() {
-    score -= dominosScores[ind][0];
-    if (score > 0 && score < 100) {
-        if (score < 10) {
-            scoreText.textContent = "Score 00" + score;
-        } else {
-            scoreText.textContent = "Score 0" + score;
-        }
-    } else if (score === 0) {
-        scoreText.textContent = "Score 000";
-    } else{
-        scoreText.textContent = "Score " + score;
-    }
-    taskText.textContent = "НЕ ПРАВИЛЬНО :(";
-}
-
-dominoButtonArray.forEach((button, index) => {
-    button.onclick = () => toggleIsLiked(dominoButtonArray[index], button, index);
+    item.classList.toggle("active-me");
 });
 
-buttonTrue.onclick = () => win();
-buttonFalse.onclick = () => loss();
+dominoButtonArray.forEach(function(button, index) {
+    button.onclick = function() {
+        let heart = dominoButtonArray[index];
+        currentDomino = heart;
+        currentDominoIndex = index;
+        taskText.textContent = taskConditions[index];
+        if (currentDomino.classList.contains("is-choosed-first")) {
+            currentDomino.classList.remove("is-choosed-first");
+            currentDomino.classList.add("is-choosed-second");
+        } else if (currentDomino.classList.contains("is-choosed-none")) {
+            taskText.textContent = "ЭТУ ЗАДАЧУ УЖЕ РЕШИЛИ!";
+        } else {
+            heart.classList.toggle("is-choosed-first");
+        }
+    };
+});
 
+buttonTrue.onclick = () => scorePreprocessor("win");
+buttonFalse.onclick = () => scorePreprocessor("loss");
 
-
+export {buttonFirstTeam, buttonSecondTeam, isTheEnd, popUp};

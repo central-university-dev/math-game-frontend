@@ -1,0 +1,60 @@
+.menu-icon {
+    height: 6vh;
+    transition: 0.3s;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.5);
+    transition: 0.3s;
+    z-index: 2;
+}
+
+.active-me {
+    right: 0%;
+}
+
+.active-me .menu-icon  {
+    --menu-color: aliceblue;
+}
+
+.toggle {
+    position: absolute;
+    left: -15%;
+    right: 4vw;
+    top: 4vh;
+    background-color: transparent;
+    border: 0;
+}
+
+.toggle:hover .menu-icon  {
+    --menu-color: aliceblue;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.game-list li {
+    list-style: none;
+}
+
+.game-list li h2 {
+    position: relative;
+    display: inline-block;
+    font-family: 'Press Start 2P', sans-serif;
+    color: aliceblue;
+    font-size: min(5.5vw, 5.5vh);
+    text-transform: uppercase;
+    
+    padding-left: 30px;
+    transition: 0.4s;
+
+}
+
+.game-list li h2:hover {
+    letter-spacing: 6px;
+    transform: translateX(15px);
+}

@@ -1,0 +1,6 @@
+:root {
+    --square-size: min(20vh, 20vw);
+    --square-color: #DBDBDB;
+    --cross-color: #DBDBDB;
+    --menu-color : #DBDBDB;
+}

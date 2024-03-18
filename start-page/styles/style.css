@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('../fonts/PressStart2P-Regular.woff') format('woff2'),
+    url('../fonts/PressStart2P-Regular.woff') format('woff');    
+}
+
+.header
+.main
+.body
+.footer {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    display: grid;
+    background: var(--page-color);
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+}
+
+header {
+    display: grid;
+}
+
+h1 {
+    font-family: 'Press Start 2P';
+    align-self: center;
+    justify-self: center;
+    color: var(--text-color);
+    font-size: 4.5vw;
+
+}
+
+h2 {
+    font-family: 'Press Start 2P';
+    align-self: center;
+    justify-self: center;
+    color: var(--text-color);
+    font-size: min(3vw, 4vh);
+    margin-left: 20px;
+    transition: 0.4s;
+}
+
+.game-list {
+    list-style-type: none;
+}
+
+.spark {
+    width: 40px;
+    transition: 0.4s;
+}
+
+.game-object {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.4s;
+}
+
+.game-object:hover h2 {
+    letter-spacing: 6px;
+    transform: translateX(15px);
+}
+
+.game-object:hover .spark {
+    --spark-color: #FED602;
+}

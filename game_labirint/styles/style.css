@@ -14,73 +14,140 @@
 
 .body {
     display: grid;
-    background: rgb(179 121 233 / 0.7);
+    background: var(--background-color);
     width: 100%;
     height: 100vh;
     margin: 0;
 }
 
-h1 {
-    font-family: 'Press Start 2P', sans-serif;
-    align-self: center;
-    color: black;
-    font-size: 10vh;
-    transition: 0.3s;
-}
-
 .header {
     display: grid;
-    justify-content: center;
-    align-content: center;
-    height: 15vh
+}
+
+h1 {
+    font-family: 'Press Start 2P';
+    align-self: center;
+    justify-self: center;
+    /* margin-left: 50px; */
+    color: #DBDBDB;
+    font-size: 6vh;
+    transition: 0.3s;
 }
 
 main {
     display: grid;
     /* padding-top: 20px; */
     height: calc(100vh - 15vh);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 4fr;
+
 }
 
-.cards {
+.labirint-svg {
+    --flowers-color: var(--background-color);
+}
+
+.game-field {
+    position: relative;
+    margin-left: 10vh;
+    margin-bottom: 5vh;
+}
+
+.labirint {
+    width: min(70vh, 50vw);
+}
+
+.start-button {
+    position: absolute;
+    background-color: transparent;
+    border: 0;
+    font-family: 'Press Start 2P';
+    color: #DBDBDB;
+    font-size: min(2vw, 2vh);
+    left: min(10vh, 5vw);
+    top: min(71vh, 51vw);
+    transition: color 0.3s ease 0.05s;
+}
+
+.active-flower {
+    --flowers-color: var(--accent-color);
+}
+
+
+
+.not-active {
+    color: var(--background-color);
+}
+
+.start-button:hover {
+    color: var(--accent-color);
+}
+
+.not-active:hover {
+    color: var(--background-color);
+}
+
+.square {
     display: grid;
-    align-items: center;
-    /* gap: 10px; */
-    list-style-type: none;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    margin: 0;
-    padding-left: 30px;
+    transition: fill 0.3s ease 0.05s;
+    position: relative;
 }
 
-.domino {
-    display: grid;
-    height: 20vh;
-    justify-content: center;
+
+.square:hover .square-svg {
+    --square-color: var(--accent-color);
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
-.domino-svg {
-    height: 20vh;
+.is-choosed {
+    --square-color: var(--accent-color);
+}
+
+.core {
+    transition: fill 0.3s ease 0.05s;
+}
+
+.square-svg {
+    width:  var(--square-size);
+}
+
+.square-svg .cross {
+    display: none;
+}
+
+.square-svg .cross-active {
+    display: block;
+}
+
+.square-svg .zero {
+    display: none;
+}
+
+.square-svg .zero-active {
+    display: block;
 }
 
 .score {
-    font-family: 'Press Start 2P', sans-serif;
-    color: black;
-    text-align: right;
-    font-size: min(1.8vw, 1.8vh);
-    padding-right: 11vw;
+    position: absolute;
+    font-family: 'Press Start 2P';
+    color: #DBDBDB;
+    font-size: min(4vw, 4vh);
+    right: 11vw;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
 .task {
     display: grid;
     position: relative;
     justify-content: center;
+    align-self: center;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-template-rows: 5fr 1fr;
     grid-template-columns: 1fr 1fr;
-
+    margin-top: 10vh;
 }
 
 .task-container {
@@ -94,7 +161,6 @@ main {
 
 .task-svg {
     width: min(30vw, 65vh);
-    /* z-index: -1; */
 }
 
 .win {
@@ -109,17 +175,17 @@ main {
     background-color: transparent;
     border: 0;
     padding-right: 3vw;
-    color: black;
+    color: #DBDBDB;
 }
 
 .win-text {
-    font-family: 'Press Start 2P', sans-serif;
+    font-family: 'Press Start 2P';
     font-size: 18px;
     transition: 0.4s;
 }
 
 .win:hover {
-    color: aliceblue;
+    color: var(--accent-color);
     cursor: pointer;
 }
 
@@ -134,82 +200,28 @@ main {
     background-color: transparent;
     border: 0;
     padding-left: 8vw;
-    color: black;
+    color: #DBDBDB;
 }
 
 .loss-text {
-    font-family: 'Press Start 2P', sans-serif;
+    font-family: 'Press Start 2P';
     font-size: 18px;
     transition: 0.4s;
 }
 
 .loss:hover {
-    color: aliceblue;
+    color: var(--accent-color);
     cursor: pointer;
-} 
-
-.domino-button {
-    background-color: transparent;
-    border: 0;
-}
-
-.core {
-    transition: fill 0.3s ease 0.05s;
-}
-
-.domino-button:hover .domino-svg  {
-    --core-color: aliceblue;
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.domino-button.is-choosed-first .domino-svg {
-    --core-color: #545454;
-}
-
-.domino-button.is-choosed-second .domino-svg {
-    --core-color: #545454;
-}
-
-.domino-button.is-choosed-none .domino-svg {
-    --core-color: aliceblue;
 }
 
 .task-text {
     position: absolute;
     top: 5vh;
-    left: 17vw;
-    font-family: 'Press Start 2P', sans-serif;
+    left: 15vw;
+    font-family: 'Press Start 2P';
     color: aliceblue;
     font-size: min(2vh, 2vw);
 }
-
-.popup__close {
-    width: 35px;
-    height: 35px;
-    background: transparent url('/images/close.svg') center no-repeat;
-    background-size: 35px 35px;
-    border: none;
-    /* position: absolute; */
-    top: -36px;
-    right: -34px;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-    transition: visibility 0s, opacity 0.3s;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-  }
-  
-  .popup__close:hover {
-    opacity: 0.6;
-  
-    visibility: visible;
-    opacity: 1;
-  }
 
 .popup {
     display: none;

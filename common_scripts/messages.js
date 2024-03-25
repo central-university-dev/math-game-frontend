@@ -6,7 +6,12 @@ const messages = {
 
 const taskConditions = ["Задача 1", "Задача 2", "Задача 3",
                         "Задача 4", "Задача 5", "Задача 6",
-                        "Задача 7", "Задача 8", "Задача 9"
+                        "Задача 7", "Задача 8", "Задача 9",
+                        "Задача 10", "Задача 11", "Задача 12",
+                        "Задача 13", "Задача 14", "Задача 15",
+                        "Задача 16", "Задача 17", "Задача 18",
+                        "Задача 19", "Задача 20", "Задача 21",
+                        "Задача 22", "Задача 23", "Задача 24"
 ];
 
 const gameOverWiners = {
@@ -26,6 +31,24 @@ const writeDownScoreWords = {
     team: "Команда ",
     score: " Счет "
 }
+
+const flowersColors = [
+    "#cf3636", "#de6868", "#eba97a", "#f5771d",
+    "#f5cf45", "#3dbfab", "#76c6e3", "#3d9cbf",
+    "#3e67b5", "#8b72b8", "#8a4df7", "#7e18a8",
+    "#cd91e6", "#d175c3", "#a61f91"
+]
+
+
+
+
+
+
+
+
+
+
+
                     
 
-export {messages, taskConditions, gameOverWiners, scoreZeroSetting, writeDownScoreWords}
+export {messages, taskConditions, gameOverWiners, scoreZeroSetting, writeDownScoreWords, flowersColors }
